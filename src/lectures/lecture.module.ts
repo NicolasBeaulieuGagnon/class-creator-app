@@ -5,9 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LectureRepository } from './lecture.repository';
 import { User } from '../auth/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
+import { LectureAttendanceRepository } from './lecture-attendance.repository';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forFeature([User, LectureRepository])],
+  imports: [
+    AuthModule,
+    TypeOrmModule.forFeature([
+      User,
+      LectureRepository,
+      LectureAttendanceRepository,
+    ]),
+  ],
   providers: [LectureService],
   controllers: [LectureController],
 })

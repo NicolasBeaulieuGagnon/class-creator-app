@@ -10,23 +10,23 @@ import {
 @Entity()
 export class Lecture {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  lecture_id: string;
 
   @Column({ unique: true })
   name: string;
 
-  @ManyToOne((_type) => User, (user) => user.CreatedLectures, { eager: true })
-  creator: User;
+  @Column('uuid')
+  user_id: string;
 
   @Column()
   description: string;
 
   @Column()
-  startDate: string;
+  start_date: string;
 
   @Column()
-  endDate: string;
+  end_date: string;
 
-  @ManyToMany((_type) => User, (user) => user.AttendingLectures)
+  @ManyToMany((_type) => User, (user) => user.attending_lectures)
   students: User[];
 }

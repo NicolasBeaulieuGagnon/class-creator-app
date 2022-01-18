@@ -10,7 +10,7 @@ import {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  user_id: string;
 
   @Column({ unique: true })
   name: string;
@@ -19,8 +19,8 @@ export class User {
   password: string;
 
   @ManyToMany((_type) => Lecture, (lecture) => lecture.students)
-  AttendingLectures: Lecture[];
+  attending_lectures: Lecture[];
 
-  @OneToMany((_type) => Lecture, (lecture) => lecture.creator)
-  CreatedLectures: Lecture[];
+  @OneToMany((_type) => Lecture, (lecture) => lecture.user_id)
+  created_lectures: Lecture[];
 }

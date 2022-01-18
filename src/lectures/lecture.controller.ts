@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -27,6 +29,11 @@ export class LectureController {
     return this.lectureService.createLecture(createLectureDto, user);
   }
 
+  @Post('/:id/')
+  joinLecture(@Param() id: string, @GetUser() user: User): Promise<void> {
+    return this.lectureService.joinLecture(id, user);
+  }
+
   @Get()
   getLectures(
     @Query() lectureFilterDto: GetLectureFilterDto,
@@ -38,5 +45,10 @@ export class LectureController {
   @Get('/:id')
   getLectureById(@Param('id') id: string) {
     return this.lectureService.getLectureById(id);
+  }
+
+  @Delete('/:id')
+  leaveLecture(@Param('id') id: string, @GetUser() user: User) {
+    return this.lectureService.leaveLecture(id, user);
   }
 }

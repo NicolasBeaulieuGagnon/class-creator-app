@@ -14,10 +14,13 @@ import { User } from 'src/auth/user.entity';
 export class LectureRepository extends Repository<Lecture> {
   private logger = new Logger('Lecture Repository');
   async getLectures(lectureFilterDto: GetLectureFilterDto, user: User) {
-    const { search } = lectureFilterDto;
+    const { search, enrolled } = lectureFilterDto;
     const query = this.createQueryBuilder('lecture');
 
-    query.where({ creator: user });
+    if (enrolled) {
+      query.andWhere(' IN (:students)', { students: [user] });
+    }
+
     if (search) {
       query.andWhere(
         'LOWER(lecture.name) LIKE :search OR LOWER(lecture.description) LIKE :search',
@@ -37,14 +40,14 @@ export class LectureRepository extends Repository<Lecture> {
     createLectureDto: CreateLectureDto,
     user: User,
   ): Promise<void> {
-    const { name, description, startDate, endDate } = createLectureDto;
+    const { name, description, start_date, end_date } = createLectureDto;
 
     const lecture = this.create({
       name,
-      creator: user,
+      user_id: user.user_id,
       description,
-      startDate,
-      endDate,
+      start_date,
+      end_date,
       students: [],
     });
 
@@ -54,8 +57,15 @@ export class LectureRepository extends Repository<Lecture> {
       if (err.code === '23505') {
         throw new ConflictException('Lecture name already taken');
       } else {
+        console.log(err);
         throw new InternalServerErrorException();
       }
     }
   }
+
+  async joinLecture(id: string, user: User) {
+    const newAttendance = { lecture_id: id, user_id: user };
+  }
+
+  async leaveLecture(id: string, user: User) {}
 }

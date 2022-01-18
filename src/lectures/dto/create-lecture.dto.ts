@@ -8,8 +8,8 @@ export class CreateLectureDto {
   description: string;
 
   @IsNotEmpty()
-  startDate: string;
+  start_date: string;
 
   @IsNotEmpty()
-  endDate: string;
+  end_date: string;
 }

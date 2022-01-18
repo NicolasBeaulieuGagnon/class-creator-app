@@ -19,8 +19,8 @@ export class UsersRepository extends Repository<User> {
     const user: User = this.create({
       name,
       password: hashedPassword,
-      AttendingLectures: [],
-      CreatedLectures: [],
+      attending_lectures: [],
+      created_lectures: [],
     });
     try {
       await this.save(user);
