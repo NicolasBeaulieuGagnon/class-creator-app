@@ -27,6 +27,5 @@ export class Lecture {
   @Column()
   end_date: string;
 
-  @ManyToMany((_type) => User, (user) => user.attending_lectures)
-  students: User[];
+  students: Number;
 }

@@ -29,8 +29,8 @@ export class LectureController {
     return this.lectureService.createLecture(createLectureDto, user);
   }
 
-  @Post('/:id/')
-  joinLecture(@Param() id: string, @GetUser() user: User): Promise<void> {
+  @Post('/:id')
+  joinLecture(@Param('id') id: string, @GetUser() user: User): Promise<void> {
     return this.lectureService.joinLecture(id, user);
   }
 

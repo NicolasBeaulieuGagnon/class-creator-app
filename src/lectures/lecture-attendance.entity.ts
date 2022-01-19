@@ -2,7 +2,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class LectureAttendance {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
+  lecture_attendance_id: string;
+
+  @Column('uuid')
   lecture_id: string;
 
   @Column('uuid')

@@ -13,12 +13,11 @@ import { User } from 'src/auth/user.entity';
 @EntityRepository(Lecture)
 export class LectureRepository extends Repository<Lecture> {
   private logger = new Logger('Lecture Repository');
-  async getLectures(lectureFilterDto: GetLectureFilterDto, user: User) {
-    const { search, enrolled } = lectureFilterDto;
+  async getLectures(search: string, creator: boolean, user: User) {
     const query = this.createQueryBuilder('lecture');
 
-    if (enrolled) {
-      query.andWhere(' IN (:students)', { students: [user] });
+    if (creator) {
+      query.andWhere({ user_id: user.user_id });
     }
 
     if (search) {
@@ -27,6 +26,7 @@ export class LectureRepository extends Repository<Lecture> {
         { search: `%${search.toLowerCase()}%` },
       );
     }
+
     try {
       return await query.getMany();
     } catch (err) {
@@ -62,10 +62,4 @@ export class LectureRepository extends Repository<Lecture> {
       }
     }
   }
-
-  async joinLecture(id: string, user: User) {
-    const newAttendance = { lecture_id: id, user_id: user };
-  }
-
-  async leaveLecture(id: string, user: User) {}
 }

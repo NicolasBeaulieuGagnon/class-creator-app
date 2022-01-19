@@ -6,4 +6,7 @@ export class GetLectureFilterDto {
 
   @IsOptional()
   enrolled?: boolean;
+
+  @IsOptional()
+  creator?: boolean;
 }

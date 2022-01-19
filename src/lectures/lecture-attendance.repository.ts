@@ -14,10 +14,13 @@ export class LectureAttendanceRepository extends Repository<LectureAttendance> {
 
   async createAttendee(lecture_id: string, user: User): Promise<void> {
     const attendee = this.create({ lecture_id, user_id: user.user_id });
+    const check = await this.findOne(attendee);
+    if (check) throw new ConflictException('already attending');
     try {
       await this.save(attendee);
     } catch (err) {
-      throw new InternalServerErrorException(err);
+      this.logger.error(err);
+      throw new InternalServerErrorException();
     }
   }
 
@@ -27,5 +30,10 @@ export class LectureAttendanceRepository extends Repository<LectureAttendance> {
     if (result.affected === 0) {
       throw new ConflictException('seems there is nothing to delete');
     }
+  }
+
+  async getAmountOfAttendees(lecture_id: string) {
+    const [_result, resultCount] = await this.findAndCount({ lecture_id });
+    return resultCount;
   }
 }
