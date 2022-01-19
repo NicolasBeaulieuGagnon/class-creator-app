@@ -1,11 +1,4 @@
-import { User } from '../auth/user.entity';
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Lecture {
@@ -27,5 +20,5 @@ export class Lecture {
   @Column()
   end_date: string;
 
-  students: Number;
+  students: number;
 }

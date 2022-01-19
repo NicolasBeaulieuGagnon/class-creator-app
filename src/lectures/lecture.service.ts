@@ -25,7 +25,7 @@ export class LectureService {
       const resultIds = results.map((result) => {
         return result.lecture_id;
       });
-      return await this.lectureRepository.find({
+      return this.lectureRepository.find({
         lecture_id: Raw((alias) => `${alias} IN (:...lecture_ids)`, {
           lecture_ids: resultIds,
         }),
@@ -36,8 +36,12 @@ export class LectureService {
         creator,
         user,
       );
-      let promises = [];
 
+      if (arrayOfLectures.length === 0) {
+        return { message: `no lectures were found. Search : ' ${search} '` };
+      }
+
+      let promises = [];
       arrayOfLectures.forEach((lecture) => {
         promises.push(
           this.lectureAttendanceRepository.getAmountOfAttendees(
@@ -62,7 +66,7 @@ export class LectureService {
   }
 
   async getLectureById(id: string) {
-    return await this.lectureRepository.findOne({ lecture_id: id });
+    return this.lectureRepository.findOne({ lecture_id: id });
   }
 
   async joinLecture(id: string, user: User): Promise<void> {

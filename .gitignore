@@ -1,4 +1,6 @@
 # compiled output
+/__coverage__
+/__tests__
 /dist
 /node_modules
 .env

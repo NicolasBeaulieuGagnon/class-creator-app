@@ -1,13 +1,12 @@
 import {
   ConflictException,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateLectureDto } from './dto/create-lecture.dto';
-import { GetLectureFilterDto } from './dto/getLectureDto';
 import { Lecture } from './lecture.entity';
 
-import { Logger } from '@nestjs/common';
 import { User } from 'src/auth/user.entity';
 
 @EntityRepository(Lecture)
@@ -48,7 +47,7 @@ export class LectureRepository extends Repository<Lecture> {
       description,
       start_date,
       end_date,
-      students: [],
+      students: 0,
     });
 
     try {
