@@ -12,6 +12,7 @@ import { User } from 'src/auth/user.entity';
 @EntityRepository(Lecture)
 export class LectureRepository extends Repository<Lecture> {
   private logger = new Logger('Lecture Repository');
+
   async getLectures(search: string, creator: boolean, user: User) {
     const query = this.createQueryBuilder('lecture');
 
@@ -19,20 +20,14 @@ export class LectureRepository extends Repository<Lecture> {
       query.andWhere({ user_id: user.user_id });
     }
 
-    if (search) {
+    if (search?.length > 0) {
       query.andWhere(
         'LOWER(lecture.name) LIKE :search OR LOWER(lecture.description) LIKE :search',
         { search: `%${search.toLowerCase()}%` },
       );
     }
 
-    try {
-      return await query.getMany();
-    } catch (err) {
-      this.logger.error(
-        `Failed to load Lectures for user. Filters: ${JSON.stringify(search)}`,
-      );
-    }
+    return await query.getMany();
   }
 
   async createLecture(
