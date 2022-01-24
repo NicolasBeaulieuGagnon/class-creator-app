@@ -67,7 +67,6 @@ describe('Lecture Service', () => {
         { creator: true },
         mockUser,
       );
-
       expect(result).toEqual([{ ...mockLecture, students: 1 }]);
     });
 

@@ -1,7 +1,6 @@
 import {
   ConflictException,
   InternalServerErrorException,
-  Logger,
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateLectureDto } from './dto/create-lecture.dto';
@@ -11,8 +10,6 @@ import { User } from 'src/auth/user.entity';
 
 @EntityRepository(Lecture)
 export class LectureRepository extends Repository<Lecture> {
-  private logger = new Logger('Lecture Repository');
-
   async getLectures(search: string, creator: boolean, user: User) {
     const query = this.createQueryBuilder('lecture');
 
