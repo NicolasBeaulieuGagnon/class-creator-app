@@ -20,6 +20,8 @@ describe("Input.tsx tests", () => {
     expect(name).toBe("test");
   });
 
+  // this test still does not work for some reason, further research is needed
+
   it("should type in test in the input", () => {
     let input = wrapper.childAt(1);
     input.simulate("change", {
