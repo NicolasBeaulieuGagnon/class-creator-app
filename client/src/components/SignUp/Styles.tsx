@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 export const TitleButton = styled.button`
@@ -92,5 +93,11 @@ export const CustomInput = styled.input`
   outline: none;
   border: none;
   background: #f2efef;
+  border-radius: 2px;
+`;
+
+export const ErrorWrapper = styled.div`
+  padding: 5px;
+  border: 1px solid black;
   border-radius: 2px;
 `;

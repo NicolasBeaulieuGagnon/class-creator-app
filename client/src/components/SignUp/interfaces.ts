@@ -6,9 +6,10 @@ export interface InputInterface {
   type: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  removeErrors: Function;
 }
 
 export interface ErrorInt {
-  type: string;
   message: string;
+  id: number;
 }

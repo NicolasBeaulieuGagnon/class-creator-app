@@ -1,17 +1,29 @@
 import Input from "./Input";
-import { configure, shallow, mount } from "enzyme";
+import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import { CustomInput } from "./Styles";
+import React from "react";
 
 configure({ adapter: new Adapter() });
 
 describe("Input.tsx tests", () => {
+  const setState = jest.fn();
+
+  jest
+    .spyOn(React, "useState")
+    .mockImplementation((): [unknown, React.Dispatch<unknown>] => [
+      "initState",
+      setState,
+    ]);
+
   const wrapper = shallow(
     <Input
       name="test"
       type="text"
       placeholder="testPlaceHolder"
       value=""
-      setValue={() => {}}
+      setValue={setState}
+      removeErrors={() => {}}
     />
   );
   it("should have the name as test", () => {
@@ -20,15 +32,14 @@ describe("Input.tsx tests", () => {
     expect(name).toBe("test");
   });
 
-  // this test still does not work for some reason, further research is needed
+  it("should start with no value", () => {
+    expect(wrapper.find(CustomInput).text()).toBe("");
+  });
 
   it("should type in test in the input", () => {
-    let input = wrapper.childAt(1);
-    input.simulate("change", {
+    wrapper.find(CustomInput).simulate("change", {
       target: { value: "testing change" },
     });
-    // expect(input.text()).toBe("testing change");
-
-    expect(input.prop("value")).toEqual("testing change");
+    expect(setState).toHaveBeenCalledTimes(1);
   });
 });

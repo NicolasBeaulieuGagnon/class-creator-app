@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
     --main-app-color: #214082
  }
     body{
+        overflow:hidden;
         margin:0;
         font-family: "AbeeZee";
 

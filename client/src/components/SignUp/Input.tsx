@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { InputInterface } from "./interfaces";
 import { CustomInput, InputWrapper, Label } from "./Styles";
 
@@ -8,26 +7,20 @@ const Input = ({
   type,
   value,
   setValue,
+  removeErrors,
 }: InputInterface) => {
-  const [myValue, setMyValue] = useState("");
-
   return (
     <InputWrapper>
       <Label htmlFor={`${type}-${name}`}>{name}</Label>
-      {/* <CustomInput
+      <CustomInput
         value={value}
         id={`${type}-${name}`}
         type={type}
         placeholder={placeholder}
         onChange={(ev) => {
           setValue(ev.target.value);
+          removeErrors();
         }}
-      /> */}
-      <CustomInput
-        id={`${type}-${name}`}
-        value={myValue}
-        onChange={(ev) => setMyValue(ev.target.value)}
-        type={type}
       />
     </InputWrapper>
   );
