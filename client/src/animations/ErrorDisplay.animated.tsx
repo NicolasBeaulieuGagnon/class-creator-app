@@ -16,7 +16,6 @@ const ErrorDisplayAnimation = ({ errorsArray }: Props) => {
   return (
     <Wrapper>
       {transitions(({ opacity }, error) => {
-        console.log(error.id);
         return (
           <ErrorWrapper
             style={{

@@ -101,3 +101,19 @@ export const ErrorWrapper = styled.div`
   border: 1px solid black;
   border-radius: 2px;
 `;
+
+export const LinkButtonWrapper = styled.div``;
+
+export const LinkButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  border: none;
+  text-decoration: underline;
+  color: #5252d4;
+  background: none;
+  transition: 200ms ease;
+  font-size: inherit;
+  :hover {
+    color: #804fc5;
+  }
+`;

@@ -10,7 +10,7 @@ export class AuthCredentialsDto {
   @MinLength(7)
   @MaxLength(30)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'password is too weak',
+    message: 'password must contain 1 uppercase letter and 1 number',
   })
   password: string;
 }
